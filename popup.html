@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Universal Video Downloader</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="w-96 bg-gray-100">
+    <!-- Header -->
+    <div class="bg-blue-600 text-white p-4 flex items-center justify-between">
+        <div class="flex items-center">
+            <img src="icons/icon-32.png" alt="Logo" class="w-8 h-8 mr-2">
+            <h1 class="text-lg font-bold">Universal Video Downloader</h1>
+        </div>
+        <div class="flex space-x-2">
+            <button id="settingsBtn" class="p-2 hover:bg-blue-700 rounded">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button id="historyBtn" class="p-2 hover:bg-blue-700 rounded">
+                <i class="fas fa-history"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Video Info -->
+    <div id="videoInfo" class="hidden p-4 bg-white border-b">
+        <div class="flex items-start space-x-4">
+            <img id="thumbnail" src="" alt="Video thumbnail" class="w-32 h-20 object-cover rounded">
+            <div class="flex-1">
+                <h2 id="title" class="font-semibold text-sm line-clamp-2"></h2>
+                <p id="author" class="text-gray-600 text-xs mt-1"></p>
+                <div class="flex items-center space-x-2 text-xs text-gray-500 mt-1">
+                    <span id="views"></span>
+                    <span>•</span>
+                    <span id="date"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Options -->
+    <div class="p-4 bg-white">
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Format</label>
+            <select id="format" class="w-full border rounded px-3 py-2">
+                <option value="best">Best Quality</option>
+                <option value="bestvideo+bestaudio">Best Video + Audio</option>
+                <option value="720p">720p</option>
+                <option value="480p">480p</option>
+                <option value="360p">360p</option>
+                <option value="audio">Audio Only</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Codec</label>
+            <select id="codec" class="w-full border rounded px-3 py-2">
+                <option value="auto">Auto</option>
+                <option value="h264">H.264</option>
+                <option value="h265">H.265</option>
+                <option value="vp9">VP9</option>
+                <option value="av1">AV1</option>
+            </select>
+        </div>
+
+        <!-- Advanced Options -->
+        <div class="space-y-2 mb-4">
+            <label class="flex items-center">
+                <input type="checkbox" id="stripAudio" class="form-checkbox h-4 w-4 text-blue-600">
+                <span class="ml-2 text-sm">Strip Audio</span>
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" id="downloadSubtitles" class="form-checkbox h-4 w-4 text-blue-600">
+                <span class="ml-2 text-sm">Download Subtitles</span>
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" id="downloadThumbnail" class="form-checkbox h-4 w-4 text-blue-600">
+                <span class="ml-2 text-sm">Download Thumbnail</span>
+            </label>
+            <label class="flex items-center">
+                <input type="checkbox" id="downloadMetadata" class="form-checkbox h-4 w-4 text-blue-600">
+                <span class="ml-2 text-sm">Download Metadata</span>
+            </label>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-2 gap-2">
+            <button id="downloadBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                <i class="fas fa-download mr-2"></i>Download
+            </button>
+            <button id="queueBtn" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+                <i class="fas fa-list mr-2"></i>Queue
+            </button>
+        </div>
+
+        <div class="mt-2 grid grid-cols-2 gap-2">
+            <button id="copyUrlBtn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
+                <i class="fas fa-link mr-2"></i>Copy URL
+            </button>
+            <button id="copyCdnBtn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300">
+                <i class="fas fa-server mr-2"></i>Copy CDN
+            </button>
+        </div>
+    </div>
+
+    <!-- Download Progress -->
+    <div id="progress" class="hidden p-4 bg-white border-t">
+        <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-medium">Downloading...</span>
+            <span id="progressPercent" class="text-sm font-medium">0%</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2">
+            <div id="progressBar" class="bg-blue-600 h-2 rounded-full" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <!-- Download Queue -->
+    <div id="queue" class="hidden p-4 bg-white border-t">
+        <h3 class="font-medium mb-2">Download Queue</h3>
+        <div id="queueList" class="space-y-2"></div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 w-96">
+            <h2 class="text-xl font-bold mb-4">Settings</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Download Directory</label>
+                    <div class="flex">
+                        <input type="text" id="downloadDir" class="flex-1 border rounded px-3 py-2">
+                        <button id="browseDir" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">
+                            Browse
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Filename Template</label>
+                    <input type="text" id="filenameTemplate" class="w-full border rounded px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Default Format</label>
+                    <select id="defaultFormat" class="w-full border rounded px-3 py-2">
+                        <option value="best">Best Quality</option>
+                        <option value="bestvideo+bestaudio">Best Video + Audio</option>
+                        <option value="720p">720p</option>
+                        <option value="480p">480p</option>
+                        <option value="360p">360p</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Download Engine</label>
+                    <select id="downloadEngine" class="w-full border rounded px-3 py-2">
+                        <option value="yt-dlp">yt-dlp (Recommended)</option>
+                        <option value="cobalt">Cobalt</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-2">
+                <button id="cancelSettings" class="px-4 py-2 text-gray-600 hover:text-gray-800">
+                    Cancel
+                </button>
+                <button id="saveSettings" class="bg-blue-500 text-white px-4 py-2 rounded">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html> 

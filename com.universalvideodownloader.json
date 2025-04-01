@@ -1,0 +1,10 @@
+{
+    "name": "com.universalvideodownloader",
+    "description": "Universal Video Downloader Native Messaging Host",
+    "path": "native-host.py",
+    "type": "stdio",
+    "allowed_origins": [
+        "chrome-extension://*",
+        "moz-extension://*"
+    ]
+} 
