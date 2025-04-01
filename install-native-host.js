@@ -6,7 +6,7 @@ const { promisify } = require('util');
 const execAsync = promisify(exec);
 
 // Get the path to the native messaging host manifest
-const manifestPath = path.join(__dirname, 'com.universalvideodownloader.json');
+const manifestPath = path.join(__dirname, 'com.simplevideodownloader.json');
 
 // Get the path to the native messaging host script
 const scriptPath = path.join(__dirname, 'native-host.py');
@@ -35,7 +35,7 @@ async function installNativeHost() {
         }
 
         // Copy manifest to target directory
-        const targetManifestPath = path.join(targetDir, 'com.universalvideodownloader.json');
+        const targetManifestPath = path.join(targetDir, 'com.simplevideodownloader.json');
         fs.copyFileSync(manifestPath, targetManifestPath);
 
         // Make native host script executable
@@ -55,7 +55,7 @@ async function installNativeHost() {
 async function uninstallNativeHost() {
     try {
         const targetDir = getTargetDir();
-        const targetManifestPath = path.join(targetDir, 'com.universalvideodownloader.json');
+        const targetManifestPath = path.join(targetDir, 'com.simplevideodownloader.json');
 
         if (fs.existsSync(targetManifestPath)) {
             fs.unlinkSync(targetManifestPath);
@@ -75,4 +75,4 @@ if (command === 'uninstall') {
     uninstallNativeHost();
 } else {
     installNativeHost();
-} 
+}

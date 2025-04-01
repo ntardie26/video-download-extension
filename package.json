@@ -1,5 +1,5 @@
 {
-    "name": "universal-video-downloader",
+    "name": "simple-video-downloader",
     "version": "1.0.0",
     "description": "A powerful video downloader extension supporting over 1000 sites",
     "main": "background.js",
@@ -46,4 +46,4 @@
     "engines": {
         "node": ">=14.0.0"
     }
-} 
+}

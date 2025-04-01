@@ -12,10 +12,10 @@ set "SCRIPT_DIR=!SCRIPT_DIR:~0,-1!"
     if not exist "!CHROME_DIR!" mkdir "!CHROME_DIR!"
     
     :: Copy manifest file
-    copy /Y "!SCRIPT_DIR!\com.universalvideodownloader.json" "!CHROME_DIR!\"
+    copy /Y "!SCRIPT_DIR!\com.simplevideodownloader.json" "!CHROME_DIR!\"
     
     :: Update manifest with absolute path
-    powershell -Command "(Get-Content '!CHROME_DIR!\com.universalvideodownloader.json') -replace '\"path\": \"native-host.py\"', '\"path\": \"!SCRIPT_DIR:\=\\!\\native-host.py\"' | Set-Content '!CHROME_DIR!\com.universalvideodownloader.json'"
+    powershell -Command "(Get-Content '!CHROME_DIR!\com.simplevideodownloader.json') -replace '\"path\": \"native-host.py\"', '\"path\": \"!SCRIPT_DIR:\=\\!\\native-host.py\"' | Set-Content '!CHROME_DIR!\com.simplevideodownloader.json'"
     
     echo Native messaging host installed for Chrome
     goto :eof
@@ -27,10 +27,10 @@ set "SCRIPT_DIR=!SCRIPT_DIR:~0,-1!"
     if not exist "!FIREFOX_DIR!" mkdir "!FIREFOX_DIR!"
     
     :: Copy manifest file
-    copy /Y "!SCRIPT_DIR!\com.universalvideodownloader.json" "!FIREFOX_DIR!\"
+    copy /Y "!SCRIPT_DIR!\com.simplevideodownloader.json" "!FIREFOX_DIR!\"
     
     :: Update manifest with absolute path
-    powershell -Command "(Get-Content '!FIREFOX_DIR!\com.universalvideodownloader.json') -replace '\"path\": \"native-host.py\"', '\"path\": \"!SCRIPT_DIR:\=\\!\\native-host.py\"' | Set-Content '!FIREFOX_DIR!\com.universalvideodownloader.json'"
+    powershell -Command "(Get-Content '!FIREFOX_DIR!\com.simplevideodownloader.json') -replace '\"path\": \"native-host.py\"', '\"path\": \"!SCRIPT_DIR:\=\\!\\native-host.py\"' | Set-Content '!FIREFOX_DIR!\com.simplevideodownloader.json'"
     
     echo Native messaging host installed for Firefox
     goto :eof
@@ -38,10 +38,10 @@ set "SCRIPT_DIR=!SCRIPT_DIR:~0,-1!"
 :: Function to uninstall
 :uninstall
     :: Chrome
-    del /F /Q "%LOCALAPPDATA%\Google\Chrome\User Data\NativeMessagingHosts\com.universalvideodownloader.json" 2>nul
+    del /F /Q "%LOCALAPPDATA%\Google\Chrome\User Data\NativeMessagingHosts\com.simplevideodownloader.json" 2>nul
     
     :: Firefox
-    del /F /Q "%APPDATA%\Mozilla\NativeMessagingHosts\com.universalvideodownloader.json" 2>nul
+    del /F /Q "%APPDATA%\Mozilla\NativeMessagingHosts\com.simplevideodownloader.json" 2>nul
     
     echo Native messaging host uninstalled
     goto :eof
@@ -67,4 +67,4 @@ if "%1"=="chrome" (
     exit /b 1
 )
 
-exit /b 0 
+exit /b 0

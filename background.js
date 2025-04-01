@@ -1,5 +1,5 @@
 // Native messaging host name
-const HOST_NAME = 'com.universalvideodownloader';
+const HOST_NAME = 'com.simplevideodownloader';
 
 // Download queue
 let downloadQueue = [];
@@ -170,7 +170,7 @@ function showNotification(message, type = 'success') {
     browser.notifications.create({
         type: 'basic',
         iconUrl: 'icons/icon-48.png',
-        title: 'Universal Video Downloader',
+        title: 'Simple Video Downloader',
         message: message
     });
 }
@@ -185,4 +185,4 @@ browser.runtime.onConnectNative.addListener((port) => {
             });
         }
     });
-}); 
+});

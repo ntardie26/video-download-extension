@@ -18,11 +18,11 @@ install_chrome() {
     mkdir -p "$target_dir"
     
     # Copy manifest file
-    cp "$SCRIPT_DIR/com.universalvideodownloader.json" "$target_dir/"
+    cp "$SCRIPT_DIR/com.simplevideodownloader.json" "$target_dir/"
     
     # Update manifest with absolute path
-    sed -i.bak "s|\"path\": \"native-host.py\"|\"path\": \"$SCRIPT_DIR/native-host.py\"|g" "$target_dir/com.universalvideodownloader.json"
-    rm -f "$target_dir/com.universalvideodownloader.json.bak"
+    sed -i.bak "s|\"path\": \"native-host.py\"|\"path\": \"$SCRIPT_DIR/native-host.py\"|g" "$target_dir/com.simplevideodownloader.json"
+    rm -f "$target_dir/com.simplevideodownloader.json.bak"
     
     # Make native host script executable
     chmod +x "$SCRIPT_DIR/native-host.py"
@@ -45,11 +45,11 @@ install_firefox() {
     mkdir -p "$target_dir"
     
     # Copy manifest file
-    cp "$SCRIPT_DIR/com.universalvideodownloader.json" "$target_dir/"
+    cp "$SCRIPT_DIR/com.simplevideodownloader.json" "$target_dir/"
     
     # Update manifest with absolute path
-    sed -i.bak "s|\"path\": \"native-host.py\"|\"path\": \"$SCRIPT_DIR/native-host.py\"|g" "$target_dir/com.universalvideodownloader.json"
-    rm -f "$target_dir/com.universalvideodownloader.json.bak"
+    sed -i.bak "s|\"path\": \"native-host.py\"|\"path\": \"$SCRIPT_DIR/native-host.py\"|g" "$target_dir/com.simplevideodownloader.json"
+    rm -f "$target_dir/com.simplevideodownloader.json.bak"
     
     # Make native host script executable
     chmod +x "$SCRIPT_DIR/native-host.py"
@@ -61,16 +61,16 @@ install_firefox() {
 uninstall() {
     # Chrome
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        rm -f "$HOME/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.universalvideodownloader.json"
+        rm -f "$HOME/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.simplevideodownloader.json"
     else
-        rm -f "$HOME/.config/google-chrome/NativeMessagingHosts/com.universalvideodownloader.json"
+        rm -f "$HOME/.config/google-chrome/NativeMessagingHosts/com.simplevideodownloader.json"
     fi
     
     # Firefox
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        rm -f "$HOME/Library/Application Support/Mozilla/NativeMessagingHosts/com.universalvideodownloader.json"
+        rm -f "$HOME/Library/Application Support/Mozilla/NativeMessagingHosts/com.simplevideodownloader.json"
     else
-        rm -f "$HOME/.mozilla/native-messaging-hosts/com.universalvideodownloader.json"
+        rm -f "$HOME/.mozilla/native-messaging-hosts/com.simplevideodownloader.json"
     fi
     
     echo "Native messaging host uninstalled"
@@ -97,4 +97,4 @@ case "$1" in
         ;;
 esac
 
-exit 0 
+exit 0
