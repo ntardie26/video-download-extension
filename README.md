@@ -139,8 +139,8 @@ A powerful browser extension that allows you to download videos from over 1000 s
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/universal-video-downloader.git
-   cd universal-video-downloader
+   git clone https://github.com/ntardie26/video-download-extension.git
+   cd video-download-extension
    ```
 
 2. Install dependencies and set up the extension:
@@ -227,7 +227,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues or have questions, please:
 1. Check the [FAQ](FAQ.md)
-2. Search existing [issues](https://github.com/yourusername/universal-video-downloader/issues)
+2. Search existing [issues](https://github.com/video-download-extension/issues)
 3. Create a new issue if needed
 
 ## Security
